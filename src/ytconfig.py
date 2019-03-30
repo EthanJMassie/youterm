@@ -36,6 +36,9 @@ class YTConfig:
             writer.write(f)
 
     def override(self, args):
+        '''
+            Override config values with options from args
+        '''
         if args.dev:
             self.dev = args.dev
         if args.token:

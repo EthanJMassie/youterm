@@ -21,4 +21,5 @@ class YTPlayer:
             # clean up if user interupts process
             mpl_proc.kill()
         finally:
+            # ensure the ydl_proc is dead
             ydl_proc.kill()
