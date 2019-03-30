@@ -9,7 +9,10 @@ def main():
         return 0
 
     while True:
-        pass
+        try:
+            pass
+        except KeyboardInterrupt:
+            break
 
     return 0
 
