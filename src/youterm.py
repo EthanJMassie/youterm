@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+import curses
+from curses import wrapper
 from sys import exit, argv
 from ytconfig import YTConfig, YTArgs
 from ytplayer import YTPlayer
@@ -14,21 +16,23 @@ def main():
     else:
         print('ERROR: No youtube api token provided')
         return 1
-
-    results = yt.search_videos('William Osman')
-
-    for result in results:
-        print(yt.get_url(result['video_id']))
+    wrapper(tui)
 
     return 0
 
-    while True:
+def tui(stdscr):
+    while(True):
         try:
-            pass
-        except KeyboardInterrupt:
-            return 0
+            stdscr.clear()
 
-    return 0
+
+            stdscr.refresh()
+            stdscr.getkey()
+        except KeyboardInterrupt:
+            curses.nocbreak()
+            stdscr.keypad(False)
+            curses.echo()
+            return
 
 if __name__ == '__main__':
     conf = YTConfig()
