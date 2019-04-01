@@ -10,8 +10,8 @@ class YTPlayer:
         '''
             Play youtube video at url
         '''
-        ydl_args = shlex.split('youtube-dl -q -o- {}'.format(url))
-        mpl_args = shlex.split('mplayer -really-quiet -vo {} -'.format(self.dev))
+        ydl_args = shlex.split('/usr/bin/youtube-dl -q -o- {}'.format(url))
+        mpl_args = shlex.split('/usr/bin/mplayer -really-quiet -vo {} -'.format(self.dev))
         # send output of ydl_proc to PIPE and use that as stdin for mpl_proc
         ydl_proc = subprocess.Popen(args=ydl_args, stdout=PIPE)
         mpl_proc = subprocess.Popen(args=mpl_args, stdout=None, stderr=None, stdin=ydl_proc.stdout)

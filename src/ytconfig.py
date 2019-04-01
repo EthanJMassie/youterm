@@ -6,7 +6,6 @@ CONF_PATH = '{}/.config/youterm.conf'.format(path.expanduser("~"))
 
 class YTConfig:
     def __init__(self):
-        print(CONF_PATH)
         parser = ConfigParser()
         try:
             with open(CONF_PATH):
