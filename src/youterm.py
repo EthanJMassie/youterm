@@ -6,21 +6,11 @@ from ytconfig import YTConfig, YTArgs
 from ytplayer import YTPlayer
 from ytquerry import YTQuerry
 
-def main():
-    if args.url:
-        player.play_video(url=args.url)
-        return 0
-    
-    if conf.token:
-        yt = YTQuerry(conf.token)
-    else:
-        print('ERROR: No youtube api token provided')
-        return 1
-    wrapper(tui)
-
-    return 0
 
 def tui(stdscr):
+    '''
+        main function for curses tui
+    '''
     while(True):
         try:
             stdscr.clear()
@@ -29,15 +19,34 @@ def tui(stdscr):
             stdscr.refresh()
             stdscr.getkey()
         except KeyboardInterrupt:
-            curses.nocbreak()
-            stdscr.keypad(False)
-            curses.echo()
+            clean(stdscr)
             return
+
+
+def clean(stdscr):
+    '''
+        clean up the curses window stdscr
+    '''
+    curses.nocbreak()
+    stdscr.keypad(False)
+    curses.echo()
+
 
 if __name__ == '__main__':
     conf = YTConfig()
     args = YTArgs(argv[1:])
     conf.override(args)
     player = YTPlayer(conf.dev)
-    exit(main())
+
+    if args.url:
+        player.play_video(url=args.url)
+        exit(0)
+    
+    if conf.token:
+        yt = YTQuerry(conf.token)
+    else:
+        print('ERROR: No youtube api token provided')
+        exit(1)
+    
+    wrapper(tui)
 
