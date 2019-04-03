@@ -11,16 +11,28 @@ def tui(stdscr):
     '''
         main function for curses tui
     '''
+    key = ''
     while(True):
+        
         try:
-            stdscr.clear()
-
+            if key == ':':
+                command_mode(stdscr)
+                key = ''
+                continue
 
             stdscr.refresh()
-            stdscr.getkey()
+            key = stdscr.getkey()
         except KeyboardInterrupt:
             clean(stdscr)
             return
+
+
+def command_mode(stdscr):
+    curses.echo()
+    while(True):
+        stdscr.refresh()
+    curses.noecho()
+        
 
 
 def clean(stdscr):
